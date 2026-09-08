@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediaShrink - Free Online Image Compressor (100% Private & Fast)</title>
+    <meta name="description" content="Compress JPG, PNG and WebP images directly in your browser without uploading to any server. 100% secure, fast, and free.">
+    <meta name="keywords" content="image compressor, reduce image size, compress jpeg online, secure photo compressor, client side compression">
+    <meta name="author" content="MediaShrink">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MediaShrink - Compress Images Locally Without Uploading">
+    <meta property="og:description" content="Fast, free, and secure photo compressor running directly inside your browser.">
+    
+    <meta property="og:url" content="https://cheery-zuccutto-70d7eb.netlify.app/">
+    <meta property="og:image" content="https://cheery-zuccutto-70d7eb.netlify.app/preview.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MediaShrink - Fast & Private Image Compressor">
+    <meta name="twitter:description" content="Reduce image file size right in your browser with zero server uploads.">
+    <meta name="twitter:image" content="https://cheery-zuccutto-70d7eb.netlify.app/preview.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-wrapper">
+         <div class="top-nav">
+                    <button class="coffee-btn" id="openModalBtn">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <span>Buy a coffee for me </span>
+                    </button>
+                </div>
+        <header class="header">
+            <div class="badge">
+                <i class="fa-solid fa-bolt"></i>
+                Fast & 100% Secure
+            </div>
+            <h1>MediaShrink</h1>
+            <p>Compress Photos and Media without sending data to the server</p>
+        </header>
+
+        <!--Compressor Card-->
+        <main class="card">
+            <!--File Picker-->
+            <div class="upload-box" id="dropZone">
+                <div class="Upload-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>                   
+                </div>
+                <h3>Drop files here or browse</h3>
+                <p>JPJ, PNG, WebP</p>
+                <input type="file" id="fileInput" accept="image/*">
+            </div>
+
+               <!-- Controls Section -->
+    <div class="controls" id="controlsSection" style="display: none; margin-top: 18px;">
+      <div class="slider-header">
+        <span>Compression Quality</span>
+        <span id="qualityVal">60%</span>
+      </div>
+      <input type="range" id="qualityRange" min="10" max="90" value="60" style="width: 100%;">
+      <!-- Target Size Input (KB Mode) -->
+      <div class="target-size-box" style="margin-top: 15px; display: flex; align-items: center; justify-content: space-between; background: rgba(255, 255, 255, 0.05); padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
+        <span style="font-size: 13px; color: #cbd5e1;">Target Size (Optional):</span>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <input type="number" id="targetKbInput" placeholder="e.g. 50" min="5" max="5000" style="width: 80px; padding: 6px 10px; background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; color: #ffffff; font-size: 13px; text-align: center; outline: none;">
+          <span style="font-size: 13px; font-weight: 600; color: #06b6d4;">KB</span>
+        </div>
+      </div>
+      <button class="btn" id="compressBtn" style="margin-top: 15px;">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> Compress Now
+      </button>
+    </div>
+
+    <!-- Result Section -->
+     <div class="result-section" id="resultSection" style="display: none; margin-top: 20px; flex-direction: column; align-items: center;">
+      
+      <!-- Comparison Container -->
+      <div class="comparison-slider" id="comparisonSlider">
+        <img id="beforeImg" class="compare-img before-img" alt="">
+        <span class="compare-badge badge-before">Original</span>
+
+        <div class="after-wrapper" id="afterWrapper">
+          <img id="afterImg" class="compare-img after-img" alt="">
+          <span class="compare-badge badge-after">Compressed</span>
+        </div>
+
+        <div class="slider-handle" id="sliderHandle">
+          <div class="handle-line"></div>
+          <div class="handle-button">
+            <i class="fa-solid fa-arrows-left-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- File Size Stats -->
+      <div class="stats" style="display: flex; justify-content: space-between; width: 100%; margin: 14px 0 12px; font-size: 14px;">
+        <span>Original: <strong id="originalSize">0 KB</strong></span>
+        <span>Compressed: <strong id="compressedSize" style="color: #06b6d4;">0 KB</strong></span>
+      </div>
+
+      <!-- Download Button -->
+      <a id="downloadBtn" class="download-btn" download style="text-decoration: none; width: 100%; text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-download"></i> Download Compressed Image
+      </a>
+    </div> 
+        </main>
+
+          <!-- Meet the Creator Section -->
+    <section class="creator-card">
+      <div class="creator-avatar">
+        <i class="fa-solid fa-code"></i>
+      </div>
+      <div class="creator-info">
+        <span class="creator-badge">Developer & Designer</span>
+        <h3>Meet Nikhil Gupta</h3>
+        <p>
+          I built <strong>MediaShrink</strong> because I believe online privacy shouldn't be complicated. 
+          Most online compressors upload your private photos to external servers—MediaShrink processes everything 
+          <strong>100% locally inside your browser</strong> using client-side Canvas. Fast, secure, and zero data leaves your device.
+        </p>
+        <div class="creator-connect">
+          <a href="https://linkedin.com" target="_blank" class="connect-link">
+            <i class="fa-brands fa-linkedin"></i> Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+    </section>
+
+        <!--Footer-->
+       <footer class="modern-footer">
+  <div class="footer-highlights">
+    <div class="highlight-item">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Zero Server Uploads</span>
+    </div>
+    <div class="highlight-item">
+      <i class="fa-solid fa-bolt"></i>
+      <span>Lightning Fast Canvas</span>
+    </div>
+    <div class="highlight-item">
+      <i class="fa-solid fa-crop-simple"></i>
+      <span>Lossless Ratio</span>
+    </div>
+  </div>
+
+  <div class="footer-card">
+    <p class="creator-title">
+      Crafted with <span class="heart-beat">❤️</span> by <strong>Nikhil Gupta</strong>
+    </p>
+    <p class="footer-tagline">Building fast, privacy-first tools for the modern web.</p>
+
+    <div class="social-links-modern">
+      <a href="mailto:your-email@gmail.com" class="social-pill mail" target="_blank" title="Email Me">
+        <i class="fa-solid fa-envelope"></i>
+        <span>Email</span>
+      </a>
+      <a href="https://linkedin.com" class="social-pill linkedin" target="_blank" title="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://instagram.com" class="social-pill insta" target="_blank" title="Instagram">
+        <i class="fa-brands fa-instagram"></i>
+        <span>Instagram</span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+
+         </div>
+
+         <!--BY Coffee For Me-->
+         <div class="modal-overlay" id="coffeeModal">
+            <div class="modal-content">
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+
+               
+                <h2>Buy a Coffee for me ☕</h2>
+                <p class="modal-desc">
+                    If this tool has made your work easier you can support it with 20 ruppes or any amount you wish via UPI!
+                </p>
+
+                <div class="upi-box">
+                    <img  class="upi-qr" id="upiQrImg" src="QR Code.png" alt="UPI QR Code">
+                    <p class="scan-text">GPay</p>
+
+                    <div class="upi-copy-wrap">
+                        <span id="upiText">9044076898@upi</span>
+                        <button id="copyUpiBtn" title="Copy UPI ID">
+                            <i class="fa-regular fa-copy"></i>  
+                        </button>
+                    </div>
+                </div>
+            </div>
+         </div>
+
+         <!--External Js-->
+         <script src="script.js"></script> 
+</body>
+</html>
