@@ -779,3 +779,62 @@ footer{
 #targetKbInput {
   -moz-appearance: textfield;
 }
+
+.portfolio{
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 14px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    color: #a1a1aa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+
+}
+
+.portfolio-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  background: linear-gradient(135deg, #f09433, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.portfolio-link::after {
+  content: " ↗";
+  font-size: 0.85em;
+  -webkit-text-fill-color: #e6683c;
+  transition: transform 0.2s ease;
+}
+
+.portfolio-link:hover {
+  filter: brightness(1.25);
+  transform: translateY(-1px);
+}
+
+.portfolio-link:hover::after {
+  transform: translate(2px, -2px);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  .portfolio {
+    font-size: 0.88rem;
+    padding: 14px 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+}
