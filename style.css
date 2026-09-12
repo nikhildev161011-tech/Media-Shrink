@@ -838,3 +838,10 @@ footer{
     margin-right: 12px;
   }
 }
+
+
+.copyright {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-bottom: 6px;
+}
